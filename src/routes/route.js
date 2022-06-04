@@ -70,4 +70,96 @@ router.post("/test-post-4", function(req, res) {
     res.send(  { msg: arr , status: true }  )
 })
 
+// Sabiha assignment
+
+//Assignment 1
+router.get('/movies', function (req, res) {
+    const movie = ['horror', 'The Shining', 'Heropanthi', 'KGF', 'Avengers']
+    res.send(movie)
+})
+
+//Assignment 2
+router.get('/movies/:indexNumber', function (req, res) {
+    const movie = ['Rang de basanti', 'The shining', 'Lord of the rings', 'Batman begins']
+    
+   res.send(movie[1])
+})
+
+//assignment 3
+/*router.get('/movies/:indexNumber1', function (req, res) {
+    
+    const movie = ['Rang de basanti', 'The shining', 'Lord of the rings', 'Batman begins']
+                for(var i=0; i<movie.length; i++){ 
+                if(movie[i]>movie.length){
+                    console.log("use a valid index")
+
+             }
+            }
+res.send(movie)
+})*/
+
+//assignment 4
+
+router.get('/films', function (req, res) {
+    const movie = [{
+        'id':1,
+        'name':'Prem Rog'
+    },
+
+    {
+       'id':2,
+      'name':'Yaarana'
+    },
+
+    {
+        'id':3,
+        'name':'The Heroapanti'
+    },
+
+    {
+        'id':4,
+        'name':'KGF'
+    }]
+
+   res.send(movie)
+    })
+
+    //assignment 5
+
+    router.get('/films/:filmid',function(req,res){
+
+        const film=[{'id':1,'name':'Prem rog'},{'id':2,'name':'Yaarana'},{'id':3,'name':'KGF'},{'id':4,'name':'Heropanti'}]
+        let x=req.params.filmid
+         x=x-1
+    
+        let flag=0
+    
+        for(let i=0;i<4;i++){
+    
+            if(i==x){
+    
+                flag=1
+    
+                break
+    
+            }}
+    
+            if(flag==1){
+    
+                return res.send(film[x])
+    
+            }
+    
+            else{
+    
+                return res.send("no movie exists with this id")
+    
+            }
+    
+       
+    
+    })
+
+
+
 module.exports = router;

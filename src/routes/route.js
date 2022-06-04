@@ -70,4 +70,52 @@ router.post("/test-post-4", function(req, res) {
     res.send(  { msg: arr , status: true }  )
 })
 
+let players=[
+{
+"name": "Bhavye",
+"dob": "1/1/1995",
+"gender": "male",
+"city": "moradabad",
+"sports": [
+"swimming", "badminton"
+]
+},
+{
+"name": "Mohit",
+"dob": "1/1/1995",
+"gender": "male",
+"city": "Rampur",
+"sports": [
+"swimming", "cricket"
+]
+},
+{
+"name": "Abhay",
+"dob": "1/1/1995",
+"gender": "male",
+"city": "Amroha",
+"sports": [
+"swimming", "tennis"
+]
+}
+]
+router.post('/players', function(req, res) {
+    let newPlayer = req.body
+    let newPlayersName = newPlayer.name
+    let isNameRepeated = false
+
+    for(let i = 0; i < players.length; i++) {
+        if(players[i].name == newPlayersName) {
+            isNameRepeated = true;
+            break;
+        }
+    }
+    if (isNameRepeated) {
+        res.send("This player was already added!")
+    } else {
+        players.push(newPlayer)
+        res.send(players)
+    }
+});
+
 module.exports = router;

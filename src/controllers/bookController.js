@@ -20,10 +20,10 @@ const getBook= async function(req, res){
 }
 
 const anotherBookUpdate= async function(req, res){
-    let updateBook=await bookModel.findOneAndUpdate({name:"2 states"}, {$set:{price:100}}, {new:true})
+    let updateBook=await bookModel.findOneAndUpdate({name:"Ashish Negi"}, {$set:{price:100}}, {new:true})
     let price=updateBook.price
     let ab=updateBook.author_id
-    let authorName=await authorModel.find({author_id:updateBook.author_id}).select({author_Name:1,id:0})
+    let authorName=await authorModel.find({author_id:ab}).select({author_Name:1,id:0})
     let name=authorName[0]
     res.send({msg:name,price})
 }
@@ -46,8 +46,8 @@ const anotherBookUpdate= async function(req, res){
 
 
 
-module.exports.createBook= createNewBook
-module.exports.createAuthor= createNewAuthor
+module.exports.createNewBook= createNewBook
+module.exports.createNewAuthor= createNewAuthor
 module.exports.getBook= getBook
-module.exports.findAndUpdate= anotherBookUpdate
+module.exports.anotherBookUpdate= anotherBookUpdate
 //module.exports.booksCost= booksCost

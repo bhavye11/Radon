@@ -44,9 +44,19 @@ const createBook = async function (req, res){
     res.send({msg : savedData})
 }
 
-let updateData=async function(req, res){
-let savedData=await bookModel.findByIdAndUpdate().populate("author_id")
+const updateData = async function (req, res) {
+    // update hardcover to true for few books
+    let hardCoverPublishers = await publisherModel.find({ name: { $in: ['Penguin', 'HarperCollins'] } }).select({ _id: 1 })
+    let arrayOfPublishers = []
 
+    for (let i = 0; i < hardCoverPublishers.length; i++) {
+        let objId = hardCoverPublishers[i]._id
+        arrayOfPublishers.push(objId)
+    }
+
+    let books = await bookModel.updateMany({ publisher: { $in: arrayOfPublishers } }, { isHardCover: true })
+
+    res.send({ data: books })
 }
 
 

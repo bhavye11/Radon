@@ -13,9 +13,7 @@ const bookSchema = new mongoose.Schema( {
     },
     prices: Number,
     ratings:Number,
-    isHardCover:{
-        type:Boolean, default:false
-    }
+    
 }, { timestamps: true });
 
 

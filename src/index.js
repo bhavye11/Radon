@@ -14,14 +14,16 @@ mongoose.connect("mongodb+srv://functionup-cohort:G0Loxqc9wFEGyEeJ@cluster0.rzot
 .then( () => console.log("MongoDb is connected"))
 .catch ( err => console.log(err) )
 
+app.use('/', route);
+
 app.use (
     function (req, res, next) {
-        console.log ("inside GLOBAL MW");
-        next();
-  }
-  );
-
-app.use('/', route);
+        currentDateAndTime=moment().format("YYYY-MM-DD hh:mm:ss")
+        currentIP=req.ip
+        currentRequestPath=req.path
+        console.log(currentDateAndTime,",", currentIP,",",currentRequestPath)
+        next()
+  });
 
 
 app.listen(process.env.PORT || 3000, function () {

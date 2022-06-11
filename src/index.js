@@ -1,6 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const route = require('./routes/route.js');
+const ip=require("ip")
+const moment=require ("moment")
 const { default: mongoose } = require('mongoose');
 const app = express();
 
@@ -16,12 +18,11 @@ mongoose.connect("mongodb+srv://bhavye11:Vdu3SztN9gdhFTvY@cluster0.syjbs.mongodb
 
 app.use('/', route);
 
-app.use (
-    function (req, res, next) {
-        currentDateAndTime=moment().format("YYYY-MM-DD hh:mm:ss")
-        currentIP=req.ip
-        currentRequestPath=req.path
-        console.log(currentDateAndTime,",", currentIP,",",currentRequestPath)
+app.use (function (req, res, next) {
+        currentDateAndTime=moment().format("YYYY-MM-DD hh:mm:ss");
+        currentIP=req.ip;
+        currentRequestPath=req.path;
+        console.log(currentDateAndTime,","+ currentIP +","+currentRequestPath)
         next()
   });
 

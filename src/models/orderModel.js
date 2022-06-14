@@ -12,11 +12,8 @@ product_id:{
 amount:{
     type:Number,
     default:100},
-isFreeAppUser:{
-    type:Boolean,
-    date:Date
-},
-date:String
+isFreeAppUser:Boolean,
+date:Date,
 }, { timestamps: true });
 
 module.exports = mongoose.model('Order', orderSchema) 

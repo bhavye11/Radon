@@ -65,7 +65,7 @@ let getSortedCities = async function (req, res) {
         let cityobjArray = []
        for(i=0; i<cities.length; i++){
         let obj = { city : cities[i] }
-        let ass = await axios.get(`http://api.openweathermap.org/data/2.5/weather?q=${cities[i]}&appid=2c29df65d0c204922e25f23b1423dd2d`)
+        let ass = await axios.get(`http://api.openweathermap.org/data/2.5/weather?q=${cities[i]}&appid=38b3027c00a2170ec9189bce0b2bb315`)
                console.log(ass.data.main.temp)
 
                obj.temp = ass.data.main.temp

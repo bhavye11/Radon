@@ -1,5 +1,5 @@
-const { findOneAndUpdate } = require("../models/blogsModel")
 const blogsModel = require("../models/blogsModel")
+const authorModel = require("../models/authorModel")
 
 const createBlog=async function(req, res){
     try{
@@ -109,7 +109,7 @@ const deleteByQueryParams = async function(req, res){
         }
         deletedTime= new Date().toISOString();
         await blogsModel.updateMany(queryData, { $set: { "isDeleted": true , "deletedAt": deletedTime} })
-        res.sendStatus(200)
+        res.status(200).send({status:true, msg:"Deleted by Query Param Successful"})
 
     } catch(error){
         console.log(error.message)  

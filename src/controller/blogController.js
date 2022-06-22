@@ -47,27 +47,34 @@ const getBlogs = async function(req, res){
 
 const updateBlogs = async function(req, res){
     try{
-        let idOfBlog = req.params.blogId
-        if(!idOfBlog) return res.status(400).send({ status: false, msg:"Blog Id is Mandatory" })
-        
-        let blogIdCheck = await blogsModel.find({_id:idOfBlog, isDeleted: false})
-        if(!blogIdCheck) return res.status(404).send({ status: false, msh: "No such blog found" })
-
-        let data = req.body
-        if(Object.keys(data).length == 0) return res.status(400).send({ status: false, msg: "Please provide data for updation of blog" })
-
-        published= new Date().toISOString();
-
-        // let blogData= await blogsModel.findById(idOfBlog)
-        // if(data.tag){
-        //     let newTag = data.tag
-        //     blogData["tag"].push(newTag)
-        //     data["tag"].push(blogData["tag"])
-        // }
-        
-        let updatedBlog =await blogsModel.findByIdAndUpdate( idOfBlog ,{$and: [data, {isPublished:true}, {publishedAt: published}]}, {new:true})
-        res.status(200).send({ status: true, data: updatedBlog})
-
+    
+    let blogId = req.params.blogId;
+    let data = req.body;
+    if (Object.keys(data).length == 0)
+      return res.status(400).send({ status: false, msg: "Body is Required"});
+    let blogData = await blogsModel.findOne({ _id: blogId, isDeleted: false });
+    if (!blogData) return res.status(404).send({ status: false, msg: "blogsId related data unavailable"});
+    if (data.title) blogData.title = data.title;
+    if (data.category) blogData.category = data.category;
+    if (data.body) blogData.body = data.body;
+    if (data.tag) {
+      if (typeof data.tag == "object") {
+        blogData.tag.push(...data.tag);
+      } else {
+        blogData.tag.push(data.tag);
+      }
+    }
+    if (data.subCategory) {
+      if (typeof data.subCategory == "object") {
+        blogData.subCategory.push(...data.subCategory);
+      } else {
+        blogData.subCategory.push(data.subCategory);
+      }
+    }
+    blogData.publishedAt = Date()
+    blogData.isPublished = true;
+    blogData.save();
+    res.status(200).send({ status: true, data: blogData});
     } catch (error){
         console.log(error.message)
         res.status(500).send({ err: error.message})

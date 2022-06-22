@@ -15,9 +15,8 @@ const createAuthor = async function (req, res) {
 
      
     if(!/^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z])$/.test(data.lname)) return res.status(400).send({msg:"Pls Enter Valid Last Name"})
-
     
-    if(!/^(?=.[a-z])(?=.[A-Z])(?=.\d)(?=.[#$^+=!*()@%&]).{8,10}$/.test(data.password)) return res.status(400).send({msg:"Password must contains 1 upperCaseletter 1 smallCaseLetter 1 special character and 1 digit"})
+    // if(!/^(?=.[a-z])(?=.[A-Z])(?=.\d)(?=.[#$^+=!*()@%&]).{8,10}$/.test(data.password)) return res.status(400).send({msg:"Password must contains 1 upperCaseletter 1 smallCaseLetter 1 special character and 1 digit"})
 
     let savedData = await authorModel.create(data);
     res.status(201).send({ status: "True", data: savedData });

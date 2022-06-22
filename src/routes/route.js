@@ -5,10 +5,14 @@ const blogController=require('../controller/blogController')
 
 router.post('/authors', authorController.createAuthor)
 
-router.get("/blogs", blogController.getBlogs)  // Rhutvik Patel
+router.post("/blogs", blogController.createBlog)
 
-router.delete("/blogs/:blogId", blogController.deleteByBlogId) // Rhutvik Patel
+router.get("/blogs", blogController.getBlogs)  
 
-router.delete("/blogs", blogController.deleteByQueryParams)  // Rhutvik Patel
+router.put("/blogs/:blogId", blogController.updateBlogs)
+
+router.delete("/blogs/:blogId", blogController.deleteByBlogId) 
+
+router.delete("/blogs", blogController.deleteByQueryParams)  
 
 module.exports = router;
